@@ -1,0 +1,45 @@
+body {
+    background-image: url('../images/bg3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-wrap: wrap;
+    background-attachment: fixed;
+}
+
+.landing_title {
+    color: #ffffff;
+    font-size: 55px;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.landing_btn {
+    margin-top: 10%;
+    margin-left: 30%;
+    width: 250px;
+    height: 60px;
+    border-radius: 6px;
+    font-size: 25px;
+    color: #000000;
+    cursor: pointer;
+    background: #ffea00;
+    transform: translateX(220%);
+    border: 2px solid #ffea00;
+    transition: all 0.3s ease;
+}
+
+.landing_btn:hover {
+    color: #ffea00;
+    background: none;
+}
+
+.footer {
+    text-align: center;
+    color: #ffffff;
+    bottom: 0;
+    margin-bottom: 15px;
+    width: 100%;
+    position: fixed;
+    font-size: 20px;
+    font-weight: bold;
+}

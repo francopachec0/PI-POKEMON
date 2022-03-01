@@ -20,7 +20,7 @@ const pokemonApi = async () => {
                     speed: p.data.stats[5].base_stat,
                     height: p.data.height,
                     weight: p.data.weight,
-                    types: p.data.types.map(el => el.type.name),
+                    types: p.data.types.map(el => el.type),
                     image: p.data.sprites.front_default,
                     createdInDb : false
                 })

@@ -1,0 +1,46 @@
+/* body {
+    background-image: url('../images/bg3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+} */
+
+.top_nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 10%;
+}
+
+.home_title {
+    color: #ffea00;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+}
+
+.link_create {
+    text-decoration: none;
+    cursor: pointer;
+    color: #ffea00;
+    transition: 0.2 ease;
+    font-size: 20px;
+}
+
+.link_create:hover{
+    text-decoration: underline;
+}
+
+.link_create:visited{
+    color: none;
+}
+
+.btn_reload {
+    cursor: pointer;
+}
+
