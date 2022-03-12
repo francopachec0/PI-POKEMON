@@ -10,6 +10,7 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 router.get('/pokemons', async (req, res) => {
+    try {
     const name = req.query.name;
     let pokeTotal = await getAllInfo();
     if (name) {
@@ -21,11 +22,15 @@ router.get('/pokemons', async (req, res) => {
         //console.log('all pokemons: ', pokeTotal)
         res.status(200).send(pokeTotal)
     }
+    } catch(e) {
+        console.log(e)
+    }  
 });
 
 
 
 router.post('/pokemons', async (req, res) => {
+    try {
     let {
         name,
         hp,
@@ -47,7 +52,7 @@ router.post('/pokemons', async (req, res) => {
         speed,
         height,
         weight,
-        image,
+        image: image ? image : "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/769px-Pokebola-pokeball-png-0.png",
         createdInDb
     })
 
@@ -58,10 +63,13 @@ router.post('/pokemons', async (req, res) => {
     newPokemon.addType(typesDb);
 
     res.status(200).send('¡Pokemon Created!');
-
+} catch(e) {
+    console.log(e)
+}  
 });
 
 router.get('/pokemons/:id', async (req, res) => {
+    try {
     const id = req.params.id;
     const pokemonsTotal = await getAllInfo();
     if (id) {
@@ -70,9 +78,13 @@ router.get('/pokemons/:id', async (req, res) => {
         res.status(200).json(pokemonId) :
         res.status(404).send('Pokemon not found')
     }
+    } catch(e) {
+        console.log(e)
+    } 
 });
 
 router.get('/types', async (req, res) => {
+    try {
     let typesApi = await axios.get('https://pokeapi.co/api/v2/type');
     let types = typesApi.data.results.map(p => p.name);
     //console.log('ALL TYPES: ', types);
@@ -82,7 +94,10 @@ router.get('/types', async (req, res) => {
         })
     })
     let allTypes = await Type.findAll();
-    res.status(200).send(allTypes)
+    res.status(200).send(allTypes);
+} catch(e) {
+    console.log(e)
+}  
 });
 
 

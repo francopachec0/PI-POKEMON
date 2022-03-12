@@ -29,13 +29,14 @@ const pokemonApi = async () => {
         })
         //console.log('RESULT: ', result);   
         return result;
-    } catch (err) {
-        return err;
-    }
+    } catch(e) {
+        console.log(e)
+    }  
 }
 
 // traigo los pokemons de la db
 const getDbInfo = async () => {
+    try {
     return await Pokemon.findAll({
         attributes: ['id', 'name', 'height', 'weight', 'hp', 'attack', 'defense', 'speed', 'image', 'createdInDb'],
         include: {
@@ -46,15 +47,22 @@ const getDbInfo = async () => {
             }
         }
     })
+} catch(e) {
+    console.log(e)
+}  
 }
 
 // concateno los pokemons de la api y los de la db
 const getAllInfo = async () => {
-    const apiInfo = await pokemonApi();
-    const dbInfo = await getDbInfo();
-    const infoTotal = apiInfo.concat(dbInfo);
-    //console.log('INFO TOTAL: ', infoTotal)
-    return infoTotal;
+    try {
+        const apiInfo = await pokemonApi();
+        const dbInfo = await getDbInfo();
+        const infoTotal = apiInfo.concat(dbInfo);
+        //console.log('INFO TOTAL: ', infoTotal)
+        return infoTotal;
+    } catch(e) {
+            console.log(e)
+        }  
 }
 
 module.exports = {
