@@ -90,3 +90,11 @@ export function getDetails(id) {
         }
     }
 }
+
+export function cleanDetails() {
+            return ({
+                type: 'CLEAN_DETAILS',
+                payload: []
+            })
+    }
+

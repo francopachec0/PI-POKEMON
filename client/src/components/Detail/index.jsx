@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDetails } from '../../actions';
+import { getDetails, cleanDetails } from '../../actions';
 import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import './index.css'
@@ -9,11 +9,19 @@ import './index.css'
 export default function Detail (props) {
     const dispatch = useDispatch();
     const params = useParams();
+    const navigate = useNavigate();
+
     useEffect(() => {
         dispatch(getDetails(params.id))
     }, [params.id, dispatch]);
 
     const myPokemon = useSelector((state) => state.details);
+
+    function cleanSubmit (e) {
+        e.preventDefault();
+        dispatch(cleanDetails())
+        navigate('/home')
+    }
 
     return (
         <div>
@@ -36,14 +44,14 @@ export default function Detail (props) {
                     </div>
                     <div className="btn">
                         <Link to = '/home'>
-                            <button className='btn_home'>Return to Home</button>    
+                            <button onClick={(e) => cleanSubmit(e)} className='btn_home'>Return to Home</button>    
                         </Link>
                     </div>
                 </div>
                 :
                 <div className="loading_container">
                         <h1 className="loading_title">Loading...</h1>
-                        <h4 className="please_reload">Please wait</h4>
+                        <h4 className="please_w">Please wait</h4>
                 </div>
             }
             
