@@ -68,19 +68,18 @@ router.post('/pokemons', async (req, res) => {
 }  
 });
 
-router.get('/pokemons/:id', async (req, res) => {
-    try {
+router.get('/pokemons/:id', (req, res) => {
     const id = req.params.id;
-    const pokemonsTotal = await getAllInfo();
-    if (id) {
-        let pokemonId = await pokemonsTotal.filter(p => p.id == id);
-        pokemonId.length ?
-        res.status(200).json(pokemonId) :
-        res.status(404).send('Pokemon not found')
-    }
-    } catch(e) {
-        console.log(e)
-    } 
+    getAllInfo()
+    .then(response => {
+        if (id) {
+            let pokeId = response.filter(p => p.id == id)
+            pokeId.length ?
+            res.status(200).json(pokeId) :
+            res.status(404).send('Pokemon not found')
+        }
+    })  
+    .catch(e => console.log(e)) 
 });
 
 router.get('/types', async (req, res) => {
