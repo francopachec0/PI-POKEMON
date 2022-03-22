@@ -10,6 +10,7 @@ export function getPokemons() {
     };
 };
 
+
 export function filterBySource(payload) {
     return {
         type: 'FILTER_BY_SOURCE',
@@ -98,3 +99,9 @@ export function cleanDetails() {
             })
     }
 
+// export function showWeight () {
+//     return ({
+//         type: 'SHOW_WEIGHT',
+//         payload: []
+//     })
+// }

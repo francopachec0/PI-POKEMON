@@ -8,6 +8,7 @@ import './index.css';
 export default function CreatePokemon() {
     const dispatch = useDispatch();
     const types = useSelector((state) => state.types);
+    const existingPokemons = useSelector(state => state.pokemons)
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
 
@@ -49,11 +50,25 @@ export default function CreatePokemon() {
         }))
     }
 
+    function handleDelete(e) {
+        setInput({
+            ...input,
+            types: input.types.filter(t => t !== e)
+        })
+    }
+
     function handleSubmit (e) {
         e.preventDefault();
         if(!input.name) {
             return alert("*Name is required") 
-        } else if (!input.hp) {
+        }
+        else if (typeof input.name !== 'string' || input.name.length < 2) {
+            return alert('*Pokemon name is invalid')
+        }
+        else if (existingPokemons.find((p) => p.name.toLowerCase() === input.name.toLowerCase())) {
+            return alert(`*Pokemon named -${input.name}- already exists`)
+        }
+        else if (!input.hp) {
             return alert("*HP is required")
         } else if (input.hp < 0 || input.hp > 255) {
             return alert("*HP can't be negative or greater than 255 points")
@@ -99,18 +114,18 @@ export default function CreatePokemon() {
         })
     }
 
-    function handleDelete(type) {
-        setInput({
-            ...input,
-            types: input.types.filter(t => t !== type)
-        })
-    }
-
     function validate (input) {
         let errors = {};
         if(!input.name) {
             errors.name = "*Name is required";
-        } else if (!input.hp) {
+        }
+        else if (typeof input.name !== 'string' || input.name.length < 2) {
+            errors.name = '*Pokemon name is invalid';
+        }
+        else if (existingPokemons.find((p) => p.name.toLowerCase() === input.name.toLowerCase())) {
+            errors.name = `*Pokemon named -${input.name}- already exists`;
+        }
+        else if (!input.hp) {
             errors.hp = "*HP is required"
         } else if (input.hp < 0 || input.hp > 255) {
             errors.hp = "*HP can't be negative or greater than 255 points"
@@ -141,9 +156,8 @@ export default function CreatePokemon() {
             errors.weight = "*Weight can't be negative or greater than 255 points"
         } else if (!input.image) {
             errors.image = "*Image URL is required, or is going to be our default img"
-        }  else if (input.types.length > 4) {
-            errors.types = "*At least 1 type is required"
-        } 
+        }// }  else if (input.types.length === 0) errors.types = "*You must select at least 1 type (max 3)"
+        // else if (input.types.length > 3) errors.types = "*Max 3 types"
         return errors;
     };
 
@@ -237,15 +251,15 @@ export default function CreatePokemon() {
                             }
                         </select>
                         
-                        {
+                        {/* {
                             errors.types && (
                                 <p className='error'>{errors.types}</p>
                             )
-                        }
+                        } */}
                         {input.types.map(t => 
-                        <div className="list_types">
+                        <div className="list_types" key={t}>
                             <p className='type'>- {t}</p>
-                            <button className='btn_x' onClick={() => handleDelete(t)}>x</button>    
+                            <button className='btn_x' value={t} onClick={() => handleDelete(t)}>x</button>    
                         </div>
                         )}
 

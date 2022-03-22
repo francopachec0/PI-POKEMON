@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getPokemons, filterBySource, orderByName, orderByStrength, getTypes, filterByTypes } from "../../actions";
+import { getPokemons, filterBySource, orderByName, orderByStrength, getTypes, filterByTypes/*, showWeight*/ } from "../../actions";
 import Paginado from "../Paginado";
 import Card from "../Card";
 import SearchBar from "../SearchBar";
@@ -59,6 +59,12 @@ export default function Home () {
         setOrder(`Oredenado ${e.target.value}`);
     }
 
+    // function handleWeight(e) {
+    //     // e.preventDefault();
+    //     console.log('handleWeight')
+    //     dispatch(showWeight(e))
+    // }
+
     return(
         <div>
             <div className="top_nav">
@@ -97,6 +103,10 @@ export default function Home () {
                         </option>
                     ))}
                 </select>
+
+                {/* <div>
+                    <button onClick={(e) => handleWeight(e)}> Button </button>
+                </div> */}
             </div>
 
             <Paginado

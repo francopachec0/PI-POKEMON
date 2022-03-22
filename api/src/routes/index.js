@@ -60,7 +60,7 @@ router.post('/pokemons', async (req, res) => {
         where: {name: types}
     });
 
-    newPokemon.addType(typesDb);
+    newPokemon.addType(typesDb); // metodo sequelize
 
     res.status(200).send('¡Pokemon Created!');
 } catch(e) {
@@ -68,18 +68,20 @@ router.post('/pokemons', async (req, res) => {
 }  
 });
 
-router.get('/pokemons/:id', (req, res) => {
+router.get('/pokemons/:id', async (req, res) => {
+    try {
     const id = req.params.id;
-    getAllInfo()
-    .then(response => {
+    let pokeTotal = await getAllInfo();
         if (id) {
-            let pokeId = response.filter(p => p.id == id)
+            let pokeId = pokeTotal.filter(p => p.id == id)
             pokeId.length ?
             res.status(200).json(pokeId) :
             res.status(404).send('Pokemon not found')
         }
-    })  
-    .catch(e => console.log(e)) 
+    }
+    catch(e) {
+        console.log(e)
+    }
 });
 
 router.get('/types', async (req, res) => {

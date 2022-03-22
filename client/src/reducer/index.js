@@ -92,7 +92,18 @@ function rootReducer (state = initialState, action) {
                     return {
                         ...state,
                         details: action.payload
-                    }                
+                    }
+                    // case 'SHOW_WEIGHT':
+                    //     let pokeAll = state.pokemons;
+                    //     pokeAll.sort((a, b) => {
+                    //         return a.weight - b.weight;
+                    //         });
+                    //     let arrSlice = pokeAll.slice(0, 4)
+                    //     console.log('pokeAll', arrSlice)
+                    // return {
+                    //     ...state,
+                    //     pokemons: arrSlice
+                    // }
         default: 
             return state;
     };
